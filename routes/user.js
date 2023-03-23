@@ -49,6 +49,7 @@ var transporter = nodemailer.createTransport({
  */
 
 userRouter.post("/generate-otp", (req, res) => {
+  console.log("Generate Otp Api");
   if (req.body.userName) {
     db.collection("UserList")
       .findOne({ $or: [{ username: req.body.userName }] })
@@ -175,6 +176,7 @@ userRouter.post("/generate-otp", (req, res) => {
  */
 
 userRouter.post("/verify-otp", (req, res) => {
+  console.log("Otp verify API");
   let pass = req.body.otp;
   console.log(req.body);
   jwt.verify(req.body.token, "verySecretValue", function (err, authData) {
@@ -242,6 +244,7 @@ userRouter.post("/verify-otp", (req, res) => {
  *             description: To test Login method
  */
 userRouter.post("/change-password", (req, res) => {
+  console.log("Change Password Api");
   var pass = req.body.userPassword;
   db.collection("OTP")
     .findOne({ $or: [{ username: req.body.userName }] })
@@ -392,6 +395,7 @@ userRouter.post("/login", (req, res) => {
  */
 
 userRouter.post("/user-register", (req, res) => {
+  console.log("Register Api")
   if (
     req.body.userName !== "" &&
     req.body.userName !== null &&

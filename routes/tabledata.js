@@ -46,6 +46,7 @@ let { ObjectId } = require("mongodb");
 //upload new Data Api
 
 tableRouter.post("/data-upload", verifytoken, (req, res) => {
+  console.log("New Table data Upload Api");
   db.collection("Vehicles")
     .insertOne({
       type: req.body.type,
@@ -104,7 +105,7 @@ tableRouter.post("/data-upload", verifytoken, (req, res) => {
 // Update data Api
 
 tableRouter.put("/update-details", verifytoken, (req, res) => {
-
+  console.log("Table data Update Api");
   db.collection("Vehicles")
     .updateOne(
       { _id: ObjectId(req.body.id) },
@@ -160,8 +161,9 @@ tableRouter.put("/update-details", verifytoken, (req, res) => {
 // Delete data Api
 
 tableRouter.delete("/delete-details", verifytoken, (req, res) => {
+  console.log("Table data Delete Api");
   db.collection("Vehicles")
-    .deleteOne({ _id: ObjectId( req.body.id) })
+    .deleteOne({ _id: ObjectId(req.body.id) })
     .then((res) => {
       console.log(res);
       res.send({ message: "Data Removed Successfully", status: 200 });
@@ -202,6 +204,7 @@ tableRouter.delete("/delete-details", verifytoken, (req, res) => {
 // get data Api
 
 tableRouter.post("/get-tabledata", verifytoken, (req, res) => {
+  console.log("Table Data Get Api");
   db.collection("Vehicles")
     .find()
     .toArray()
