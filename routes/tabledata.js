@@ -2,7 +2,7 @@ const express = require("express");
 const tableRouter = express.Router();
 const { verifytoken } = require("../helper/token");
 const { client } = require("../dataBase/dataBase");
-
+const { faker } = require("@faker-js/faker");
 let db = client.db("MyDatabase");
 let { ObjectId } = require("mongodb");
 
@@ -210,6 +210,19 @@ tableRouter.post("/get-tabledata", verifytoken, (req, res) => {
     .toArray()
     .then((items) => {
       res.send({ items, message: "Here Your Data", status: 200 });
+    });
+});
+// SampleCollection
+
+tableRouter.get("/sample-tabledata", (req, res) => {
+  db.collection("samplecollection1")
+    .aggregate([{ $project: { email: 1, fname: 1, lname: 1 } }])
+    .toArray()
+    .then((items) => {
+      return res.status(200).json({ message: "Here Your Data", data: items });
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
     });
 });
 
